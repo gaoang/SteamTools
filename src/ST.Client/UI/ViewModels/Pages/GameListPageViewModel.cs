@@ -388,7 +388,9 @@ namespace System.Application.UI.ViewModels
                     if (result.IsOK())
                     {
                         Toast.Show(AppResources.GameList_RuningWait);
-                        app.StartSteamAppProcess(true);
+                        app.Process = Process2.Start(
+                            IApplication.ProgramPath,
+                            $"-clt app -id {app.AppId}");
                         SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
                     }
                     break;

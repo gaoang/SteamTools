@@ -266,7 +266,7 @@
     <!-- Xamarin.Android -->
     <PackageVersion Include="Xamarin.Build.Download" Version="0.11.1" />
     <PackageVersion Include="Xamarin.Google.Dagger" Version="2.39.1" />
-    <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
+    <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.2.0" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0.4" />
     <PackageVersion Include="Square.OkHttp3" Version="4.9.3" />
@@ -309,12 +309,10 @@
 
     <!-- UWP -->
     <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.0-preview3" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
 
     <!-- Code Style -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
-    
-    <PackageVersion Include="7-Zip.NativeAssets.Win32" Version="21.7.0-preview.1" />
 
   </ItemGroup>
 </Project>

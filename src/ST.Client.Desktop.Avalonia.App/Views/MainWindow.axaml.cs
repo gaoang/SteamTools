@@ -82,11 +82,6 @@ namespace System.Application.UI.Views
         {
             base.OnOpened(e);
 
-            if (ViewModel is not null && ViewModel.SelectedItem.IsDeactivation)
-            {
-                ViewModel.SelectedItem.Activation();
-            }
-
             IApplicationUpdateService.Instance.OnMainOpenTryShowNewVersionWindow();
         }
 

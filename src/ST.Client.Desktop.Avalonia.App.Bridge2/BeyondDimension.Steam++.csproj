@@ -1,24 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!--https://docs.microsoft.com/zh-cn/windows/apps/windows-app-sdk/single-project-msix?tabs=csharp-->
+    <!--https://github.com/andrewleader/WindowsAppSDKGallery-->
+    <!--<OutputType>Exe</OutputType>-->
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <SignAssembly>false</SignAssembly>
+    <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
     <AssemblyName>Steam++</AssemblyName>
-    <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;PUBLISH;MSIX_SINGLE_PROJECT;$(DefineConstants)</DefineConstants>
+    <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;PUBLISH;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>..\ST.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
-    <!--<UseWindowsForms Condition="'$(Configuration)'=='Debug'">true</UseWindowsForms>-->
+    <UseWindowsForms Condition="'$(Configuration)'=='Debug'">true</UseWindowsForms>
     <Platforms>x86;x64;arm64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateKeyFile>ST.Client.Avalonia.App.Bridge.Package_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
@@ -56,6 +61,11 @@
     <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>
 
+  <!--<ItemGroup>
+    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+    <TrimmerRootAssembly Include="System.Text.Json" />
+  </ItemGroup>-->
+
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Startup2.HandleGlobalException.cs" />
@@ -84,14 +94,14 @@
     </AvaloniaResource>
   </ItemGroup>
 
-  <!--<ItemGroup Condition="'$(Configuration)'=='Release'">
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
     <ProjectReference Include="..\Avalonia.Diagnostics\Avalonia.Diagnostics.csproj" />
-  </ItemGroup>-->
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
-    <!--<ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />-->
-    <!--<ProjectReference Include="..\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />-->
+    <ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
+    <ProjectReference Include="..\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
@@ -114,16 +124,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="DesktopBridgeHelper2.cs" />
+    <Compile Remove="FileSystemDesktopBridge.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\**" />
   </ItemGroup>
 
   <!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
